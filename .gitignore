@@ -1,0 +1,68 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+*.egg
+
+# Environment
+.env
+.env.local
+
+# Data (runtime — never commit)
+data/
+*.db
+*.wav
+*.mp3
+*.mp4
+
+# Models (downloaded at runtime)
+*.onnx
+*.bin
+*.pt
+*.safetensors
+*.gguf
+
+# Node
+node_modules/
+.angular/
+frontend/dist/
+
+# Electron
+electron/dist/
+electron/out/
+
+# Flutter
+mobile/.dart_tool/
+mobile/build/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.packages
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage/
+.coverage
+htmlcov/
+*.xml
+.pytest_cache/
+.ruff_cache/
+
+# Claude Code (internal — local only)
+.claude/
+
+# Playwright MCP
+.playwright-mcp/
+
+# Cursor rules (local IDE config)
+.cursorrules

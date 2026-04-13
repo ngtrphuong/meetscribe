@@ -1,0 +1,9 @@
+[submodule "engines/gasr"]
+	path = engines/gasr
+	url = https://github.com/ngtrphuong/gasr.git
+	branch = main
+
+[submodule "engines/simulstreaming"]
+	path = engines/simulstreaming
+	url = https://github.com/ufal/SimulStreaming.git
+	branch = main

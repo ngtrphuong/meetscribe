@@ -1,0 +1,45 @@
+{
+  "name": "meetscribe-desktop",
+  "version": "0.2.0",
+  "private": true,
+  "main": "dist/main.js",
+  "scripts": {
+    "dev": "concurrently \"npm run build:watch\" \"electron .\"",
+    "build": "tsc -p tsconfig.json && electron-builder",
+    "build:watch": "tsc -p tsconfig.json --watch",
+    "pack": "electron-builder --dir",
+    "dist:win": "electron-builder --win",
+    "dist:mac": "electron-builder --mac",
+    "dist:linux": "electron-builder --linux"
+  },
+  "dependencies": {
+    "electron-updater": "^6.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "concurrently": "^9.0.0",
+    "electron": "^40.0.0",
+    "electron-builder": "^25.0.0",
+    "typescript": "~5.6.0"
+  },
+  "build": {
+    "appId": "vn.tma.meetscribe",
+    "productName": "MeetScribe",
+    "directories": { "output": "release" },
+    "files": ["dist/**/*"],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.icns",
+      "entitlements": "assets/entitlements.mac.plist",
+      "entitlementsInherit": "assets/entitlements.mac.plist"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "assets/icon.png"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  meetscribe-backend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    ports:
+      - "${MEETSCRIBE_PORT:-9876}:9876"
+    volumes:
+      - ./data:/app/data
+      - ./backend:/app/backend
+    env_file: .env
+    depends_on:
+      - whisper-asr
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
+
+  whisper-asr:
+    image: onerahmet/openai-whisper-asr-webservice:latest-gpu
+    ports:
+      - "${WHISPER_ASR_PORT:-9000}:9000"
+    environment:
+      ASR_MODEL: ${WHISPER_ASR_MODEL:-large-v3}
+      ASR_ENGINE: ${WHISPER_ASR_ENGINE:-faster_whisper}
+      ASR_DEVICE: cuda
+    volumes:
+      - ./data/whisper-cache:/root/.cache
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped

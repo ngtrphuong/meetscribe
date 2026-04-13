@@ -1,0 +1,95 @@
+[build-system]
+requires = ["setuptools>=75.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "meetscribe"
+version = "0.2.0"
+description = "Vietnamese-first AI Meeting Intelligence Platform"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.11,<3.14"
+authors = [{name = "TMA Solutions — Program 3"}]
+
+dependencies = [
+    # API Server
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.0",
+    "uvloop>=0.21.0; sys_platform != 'win32'",
+    "httptools>=0.6.0",
+    "orjson>=3.10.0",
+    "websockets>=13.0",
+    "python-multipart>=0.0.12",
+    # Database (encrypted SQLite — Decree 356)
+    "aiosqlite>=0.20.0",
+    "sqlcipher3>=0.5.0",
+    # Audio
+    "sounddevice>=0.5.0",
+    "numpy>=1.26.0",
+    "ffmpeg-python>=0.2.0",
+    # ASR: faster-whisper (core — always available)
+    "faster-whisper>=1.1.0",
+    # ASR: Qwen3-ASR (optional engine; PyPI package is 0.0.x)
+    "qwen-asr>=0.0.6",
+    # ASR: transformers-based models (PhoWhisper, VibeVoice, Qwen3-ASR)
+    "transformers>=4.51.0",
+    "torch>=2.4.0",
+    "torchaudio>=2.4.0",
+    "accelerate>=1.2.0",
+    "bitsandbytes>=0.45.0; sys_platform == 'linux'",
+    "librosa>=0.10.0",
+    "soundfile>=0.12.0",
+    # Diarization
+    "diart>=0.9.0",
+    "pyannote.audio>=3.1.0",
+    # LLM: multi-provider
+    "httpx>=0.27.0",
+    "anthropic>=0.40.0",
+    "openai>=1.60.0",
+    "google-genai>=1.0.0",
+    # Embeddings & Search
+    "sentence-transformers>=3.3.0",
+    # Config & Logging
+    "pydantic>=2.10.0",
+    "pydantic-settings>=2.7.0",
+    "structlog>=24.4.0",
+    "python-dotenv>=1.0.0",
+    # Utils
+    "uuid7>=0.1.0",
+    "pyyaml>=6.0.0",
+]
+
+[project.optional-dependencies]
+# NVIDIA NeMo — heavy, install only when using Parakeet
+nemo = ["nemo_toolkit[asr]>=2.1.0"]
+# WhisperLiveKit — simultaneous streaming frontend
+livekit = ["whisperlivekit>=1.0.0"]
+dev = [
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-cov>=6.0.0",
+    "httpx>=0.27.0",
+    "ruff>=0.8.0",
+    "mypy>=1.13.0",
+    "locust>=2.32.0",
+]
+
+[tool.setuptools.packages.find]
+include = ["backend*"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "A", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = "-v --tb=short"
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
