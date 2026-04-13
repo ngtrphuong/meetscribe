@@ -6,11 +6,12 @@
  */
 import {
   Component, ChangeDetectionStrategy, OnInit, OnDestroy,
-  inject, signal
+  inject, signal, computed
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { ThemeService } from '../../core/services/theme.service';
 
 interface AsrEngine {
   id: string; label: string; latency: string;
@@ -45,20 +46,51 @@ type SettingsTab = 'engines' | 'llm' | 'compliance' | 'audio';
           and LLM infrastructure.
         </p>
       </div>
-      <div class="flex items-center gap-2.5 px-3 py-1.5 rounded-full"
-           style="background:var(--ms-surface-2);
-                  border:1px solid var(--ms-border)">
-        <div class="w-6 h-6 rounded-full flex items-center justify-center
-                    text-white text-xs font-bold"
-             style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">
-          A
+      <div class="flex items-center gap-3">
+        <!-- Theme toggle -->
+        <button class="flex items-center gap-2 px-3 py-1.5 rounded-full transition-all"
+                style="background:var(--ms-surface-2);border:1px solid var(--ms-border);
+                       cursor:pointer"
+                (click)="themeService.toggle()"
+                [attr.data-tip]="themeService.isDark() ? 'Switch to light' : 'Switch to dark'">
+          @if (themeService.isDark()) {
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                 stroke="var(--ms-text-3)" stroke-width="2" stroke-linecap="round">
+              <circle cx="12" cy="12" r="5"/>
+              <line x1="12" y1="1" x2="12" y2="3"/>
+              <line x1="12" y1="21" x2="12" y2="23"/>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+              <line x1="1" y1="12" x2="3" y2="12"/>
+              <line x1="21" y1="12" x2="23" y2="12"/>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+            <span class="text-xs font-medium" style="color:var(--ms-text-3)">Dark</span>
+          } @else {
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                 stroke="var(--ms-text-3)" stroke-width="2" stroke-linecap="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+            <span class="text-xs font-medium" style="color:var(--ms-text-3)">Light</span>
+          }
+        </button>
+
+        <div class="flex items-center gap-2.5 px-3 py-1.5 rounded-full"
+             style="background:var(--ms-surface-2);
+                    border:1px solid var(--ms-border)">
+          <div class="w-6 h-6 rounded-full flex items-center justify-center
+                      text-white text-xs font-bold"
+               style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">
+            A
+          </div>
+          <div>
+            <div class="text-xs font-semibold"
+                 style="color:var(--ms-text)">Alex Sterling</div>
+            <div class="text-xs" style="color:var(--ms-muted)">CTO</div>
+          </div>
+          <span class="badge badge-executive">Executive Suite</span>
         </div>
-        <div>
-          <div class="text-xs font-semibold"
-               style="color:var(--ms-text)">Alex Sterling</div>
-          <div class="text-xs" style="color:var(--ms-muted)">CTO</div>
-        </div>
-        <span class="badge badge-executive">Executive Suite</span>
       </div>
     </div>
 
@@ -487,6 +519,7 @@ type SettingsTab = 'engines' | 'llm' | 'compliance' | 'audio';
   `,
 })
 export class SettingsPanelComponent implements OnInit, OnDestroy {
+  themeService = inject(ThemeService);
   private http = inject(HttpClient);
 
   activeTab = signal<SettingsTab>('engines');

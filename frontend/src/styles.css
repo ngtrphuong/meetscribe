@@ -366,7 +366,7 @@
    DESIGN TOKENS
    ═══════════════════════════════════════════════════════════════════════════ */
 :root {
-  /* Core palette — deep navy */
+  /* Core palette — deep navy (dark theme default) */
   --ms-bg:           #070b15;
   --ms-surface:      #0b1120;
   --ms-surface-2:    #0f1829;
@@ -419,6 +419,27 @@
   --ms-glow-green:   0 0 0 1px rgba(34,197,94,0.3),0 4px 16px rgba(34,197,94,0.12);
 }
 
+/* ─── Light Theme ─────────────────────────────────────────────────────── */
+[data-theme="light"] {
+  --ms-bg:           #f0f4f8;
+  --ms-surface:      #ffffff;
+  --ms-surface-2:   #f8fafc;
+  --ms-surface-3:    #eef1f6;
+  --ms-surface-4:     #e2e8f0;
+  --ms-border:        #e2e8f0;
+  --ms-border-2:      #cbd5e1;
+
+  --ms-text:         #0f172a;
+  --ms-text-2:       #334155;
+  --ms-text-3:       #64748b;
+  --ms-muted:        #94a3b8;
+
+  --ms-shadow:       0 8px 32px rgba(0,0,0,0.12);
+  --ms-shadow-sm:    0 2px 10px rgba(0,0,0,0.08);
+  --ms-glow-primary: 0 0 0 1px rgba(99,102,241,0.25),0 4px 20px rgba(99,102,241,0.1);
+  --ms-glow-green:   0 0 0 1px rgba(34,197,94,0.3),0 4px 16px rgba(34,197,94,0.08);
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
    RESET
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -443,6 +464,9 @@ svg { flex-shrink: 0; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #1e2d45; border-radius: 99px; }
 ::-webkit-scrollbar-thumb:hover { background: #263450; }
+
+[data-theme="light"] ::-webkit-scrollbar-thumb { background: #cbd5e1; }
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
 /* ═══════════════════════════════════════════════════════════════════════════
    KEYFRAMES
