@@ -118,9 +118,9 @@ import { ConsentDialogComponent, ConsentResult } from '../consent/consent-dialog
             <div class="flex flex-col items-center gap-5">
               <div class="relative">
                 <!-- Outer ring -->
-                <div class="absolute inset-0 rounded-full opacity-20"
+                <div class="absolute inset-0 rounded-full opacity-20 pointer-events-none"
                      style="transform:scale(1.35);background:var(--ms-danger)"></div>
-                <div class="absolute inset-0 rounded-full opacity-10"
+                <div class="absolute inset-0 rounded-full opacity-10 pointer-events-none"
                      style="transform:scale(1.6);background:var(--ms-danger)"></div>
                 <button class="btn-record" (click)="showConsent.set(true)">
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none"

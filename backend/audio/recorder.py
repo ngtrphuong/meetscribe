@@ -29,7 +29,7 @@ from typing import Optional
 import numpy as np
 import structlog
 
-from backend.audio.capture import AudioCapture, SAMPLE_RATE, CHANNELS
+from backend.audio.capture import create_audio_capture, SAMPLE_RATE, CHANNELS
 from backend.config import settings
 
 logger = structlog.get_logger(__name__)
@@ -77,7 +77,7 @@ class RecordingSession:
         self._buffer_lock = asyncio.Lock()
 
         # Capture backend
-        self._capture = AudioCapture(
+        self._capture = create_audio_capture(
             system_device_id=system_device_id,
             mic_device_id=mic_device_id,
         )
